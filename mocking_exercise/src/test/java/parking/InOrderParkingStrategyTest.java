@@ -25,8 +25,6 @@ public class InOrderParkingStrategyTest {
         when(parkingLot1.getName()).thenReturn("parkingLot1");
 
 
-
-
         InOrderParkingStrategy inOrderParkingStrategy = new InOrderParkingStrategy();
         Receipt park = inOrderParkingStrategy.createReceipt(parkingLot1, car);
         Assert.assertEquals("car1", park.getCarName());

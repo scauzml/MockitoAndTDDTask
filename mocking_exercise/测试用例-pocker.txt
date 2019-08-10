@@ -1,0 +1,80 @@
+ C D H S T J Q K A
+ Task1(High Card only one max ,win)
+//given two pockers
+ 2h 3c 4s 5h 7h
+ 2h 4c 5s 7d 9h
+ when,
+ Then 2 win
+
+//given two pockers
+ 3h 4c 5s 6h 8h
+ 2h 3c 4s 5d 9h
+ when,
+ Then 2 win
+
+//given two pockers
+ 9h Tc Js Qh Kh
+ 9c Ts Jc Qd Ah
+ when,
+ Then 2 win
+
+ Task(two pair leve da 取胜)
+//given two pockers
+ 2h 2c 4s 5h 7h
+ 3h 3c 5s 7d 9h
+ when,
+ Then 2 win
+
+//given two pockers
+ 2h 2c 4s 5h 7h
+ 2d 2s 5s 7d 9h
+ when,
+ Then 2 win
+
+ Task(three of a kind)
+//given two pockers
+ 3h 3d 3c 4s 5h
+ 2h 2d 2c 5s 6d
+ when,
+ Then 1 win
+
+
+ Task(Straight)
+//given two pockers
+ 3h 4d 5c 6s 7h
+ 4h 5d 6c 7s 8d
+ when,
+ Then 2 win
+
+
+ Task(Flush 比较)
+//given two pockers
+ 2h 9H 4H 2H Th
+ 2c 5c 3c 7c jc
+ when,
+ Then 2 win
+
+ Task（four house）
+//given two pockers
+ 3h 3d 3c 2s 2h
+ 4h 4d 4c 5s 5d
+ when,
+ Then 2 win
+
+ Task（four of a kind）
+ //given two pockers
+  3h 3d 3c 3s 2h
+  4h 4d 4c 4s 5d
+  when,
+  Then 2 win
+
+
+ Task（four of a kind）
+ //given two pockers
+  3h 4h 5h 6h 7h
+  2d 3d 4d 5d 6d
+  when,
+  Then 1 win
+
+
+
