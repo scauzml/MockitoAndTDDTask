@@ -7,10 +7,40 @@ import java.util.List;
 
 public class SalesApp {
 
+	SalesDao salesDao;
+	SalesReportDao salesReportDao;
+	EcmService ecmService;
+
+	public EcmService getEcmService() {
+		return ecmService;
+	}
+
+	public void setEcmService(EcmService ecmService) {
+		this.ecmService = ecmService;
+	}
+
+	public void setSalesDao(SalesDao salesDao) {
+		this.salesDao = salesDao;
+	}
+
+	public void setSalesReportDao(SalesReportDao salesReportDao) {
+		this.salesReportDao = salesReportDao;
+	}
+
+	public SalesDao getSalesDao() {
+		return salesDao;
+	}
+
+	public SalesReportDao getSalesReportDao() {
+		return salesReportDao;
+	}
+
 	public void generateSalesActivityReport(String salesId, int maxRow, boolean isNatTrade, boolean isSupervisor) {
 		
-		SalesDao salesDao = new SalesDao();
-		SalesReportDao salesReportDao = new SalesReportDao();
+		//SalesDao salesDao = new SalesDao();
+		SalesDao salesDao = getSalesDao();
+		//SalesReportDao salesReportDao = new SalesReportDao();
+		SalesReportDao salesReportDao = getSalesReportDao();
 		List<String> headers = null;
 		
 		List<SalesReportData> filteredReportDataList = new ArrayList<SalesReportData>();
@@ -22,6 +52,7 @@ public class SalesApp {
 		Sales sales = salesDao.getSalesBySalesId(salesId);
 		
 		Date today = new Date();
+		Date date=sales.getEffectiveTo();
 		if (today.after(sales.getEffectiveTo())
 				|| today.before(sales.getEffectiveFrom())){
 			return;
@@ -55,12 +86,13 @@ public class SalesApp {
 		
 		SalesActivityReport report = this.generateReport(headers, reportDataList);
 		
-		EcmService ecmService = new EcmService();
+		EcmService ecmService =getEcmService();
+
 		ecmService.uploadDocument(report.toXml());
 		
 	}
 
-	private SalesActivityReport generateReport(List<String> headers, List<SalesReportData> reportDataList) {
+	protected SalesActivityReport generateReport(List<String> headers, List<SalesReportData> reportDataList) {
 		// TODO Auto-generated method stub
 		return null;
 	}
