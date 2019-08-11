@@ -51,5 +51,19 @@ public class PokerHandsTest {
 
     }
 
+    @Test
+    public void should_return_2_win_when_poker_hands_with_two_poker_array_card_level_and_in_pair() {
+
+        //given
+        String[] win2 = {"2C", "2S", "4H", "5H", "7C"};
+        String[] win1 = {"3H", "3C", "4S", "5D", "7H"};
+        PokerHands pokerHands = new PokerHands();
+        //when
+        String winer = pokerHands.getWiner(win1, win2);
+        //then
+        Assert.assertEquals("win1", winer);
+
+    }
+
 
 }
