@@ -21,9 +21,13 @@ public class PokerHands {
             }else {
                 return "win2";
             }
+        }else if(player1.getPokerLevel()>player2.getPokerLevel()){
+            return "win1";
+        }else {
+            return "win2";
         }
 
-        return null;
+
     }
 
     private Player createPlayer(String[] pockerCards) {
