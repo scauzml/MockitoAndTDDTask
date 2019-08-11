@@ -201,5 +201,43 @@ public class PokerHandsTest {
         Assert.assertEquals("win1", winer);
     }
 
+    @Test
+    public void should_return_1_win_when_poker_hands_with_two_poker_array_card_level_in_straight() {
+
+        //given
+        String[] win2 = {"2C", "3S", "4H", "5H", "6C"};
+        String[] win1 = {"3H", "4d", "5S", "6D", "7H"};
+        PokerHands pokerHands = new PokerHands();
+        //when
+        String winer = pokerHands.getWiner(win1, win2);
+        //then
+        Assert.assertEquals("win1", winer);
+    }
+
+    @Test
+    public void should_return_1_win_when_poker_hands_with_two_poker_array_card_level_in_straight_with_all_code_same() {
+
+        //given
+        String[] win2 = {"2C", "3S", "4H", "5H", "6C"};
+        String[] win1 = {"2H", "3d", "4S", "5D", "6H"};
+        PokerHands pokerHands = new PokerHands();
+        //when
+        String winer = pokerHands.getWiner(win1, win2);
+        //then
+        Assert.assertEquals("no win", winer);
+    }
+
+    @Test
+    public void should_return_1_win_when_poker_hands_with_two_poker_array_card_level_in_straight_and_three_of_a_kind() {
+
+        //given
+        String[] win2 = {"2C", "3S", "4H", "5H", "6C"};
+        String[] win1 = {"3H", "3d", "3S", "5D", "7H"};
+        PokerHands pokerHands = new PokerHands();
+        //when
+        String winer = pokerHands.getWiner(win1, win2);
+        //then
+        Assert.assertEquals("win2", winer);
+    }
 
 }

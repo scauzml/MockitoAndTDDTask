@@ -72,6 +72,17 @@ public class PokerHands {
                 String winer = toFindWinerFromPairOrThreeOfAKind(player1, player2, player1CardCodeList, player2CardCodeList, equalNum);
                 if (winer != null) return winer;
 
+            } else if (player1.getPokerLevel() == PokerLevel.STRAIGHT.getLevel()) {
+                int maxCode1 = getMaxCode(player1);
+                int maxCode2 = getMaxCode(player2);
+                if (maxCode1 > maxCode2) {
+                    return "win1";
+                } else if(maxCode1<maxCode2){
+                    return "win2";
+                }else if(maxCode1==maxCode2){
+                    String winer = toFindWiner(player1CardCodeList, player2CardCodeList, maxCode1);
+                    if (winer != null) return winer;
+                }
             }
 
         } else if (player1.getPokerLevel() > player2.getPokerLevel()) {
