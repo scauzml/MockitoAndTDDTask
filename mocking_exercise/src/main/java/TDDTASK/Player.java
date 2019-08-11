@@ -127,7 +127,7 @@ public class Player {
 
     private boolean isStraight(List<Integer> codeList) {
         boolean isStraight=true;
-        for (int i = 0; i < codeList.size(); i++) {
+        for (int i = 0; i < codeList.size()-1; i++) {
             if((codeList.get(i)+1)!=codeList.get(i+1)){
                 isStraight=false;
                 break;
