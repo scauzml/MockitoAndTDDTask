@@ -33,17 +33,26 @@ public class PokerHands {
 
 
             } else if (player1.getPokerLevel() == PokerLevel.PAIR.getLevel()) {
-                int equalNum1 = getEqualNum(player1, 2);
-                int equalNum2 = getEqualNum(player2, 2);
+                int equalNum = 2;
+                String winer = toFindWinerFromPairOrThreeOfAKind(player1, player2, player1CardCodeList, player2CardCodeList, equalNum);
+                if (winer != null) return winer;
 
-                if (equalNum1 > equalNum2) {
-                    return "win1";
-                } else if (equalNum1 < equalNum2) {
-                    return "win2";
-                } else if (equalNum1 == equalNum2) {
-                    String winer = toFindWiner(player1CardCodeList, player2CardCodeList, equalNum1);
-                    if (winer != null) return winer;
-                }
+            }else if(player1.getPokerLevel()==PokerLevel.THREE_OF_A_KIND.getLevel()){
+                int equalNum = 3;
+                String winer = toFindWinerFromPairOrThreeOfAKind(player1, player2, player1CardCodeList, player2CardCodeList, equalNum);
+                if (winer != null) return winer;
+
+//                int equalNum1 = getEqualNum(player1, 3);
+//                int equalNum2 = getEqualNum(player2, 3);
+//
+//                if (equalNum1 > equalNum2) {
+//                    return "win1";
+//                } else if (equalNum1 < equalNum2) {
+//                    return "win2";
+//                } else if (equalNum1 == equalNum2) {
+//                    String winer = toFindWiner(player1CardCodeList, player2CardCodeList, equalNum1);
+//                    if (winer != null) return winer;
+//                }
 
             }
 
@@ -54,6 +63,21 @@ public class PokerHands {
         }
 
 
+        return null;
+    }
+
+    private String toFindWinerFromPairOrThreeOfAKind(Player player1, Player player2, List<Integer> player1CardCodeList, List<Integer> player2CardCodeList, int equalNum) {
+        int equalNum1 = getEqualNum(player1, equalNum);
+        int equalNum2 = getEqualNum(player2, equalNum);
+
+        if (equalNum1 > equalNum2) {
+            return "win1";
+        } else if (equalNum1 < equalNum2) {
+            return "win2";
+        } else if (equalNum1 == equalNum2) {
+            String winer = toFindWiner(player1CardCodeList, player2CardCodeList, equalNum1);
+            if (winer != null) return winer;
+        }
         return null;
     }
 

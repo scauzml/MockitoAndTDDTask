@@ -23,7 +23,7 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_return_2_win_when_poker_hands_with_two_poker_array_in_high_card_level_and_type_j_or_q_or_k() {
+    public void should_return_1_win_when_poker_hands_with_two_poker_array_in_high_card_level_and_type_j_or_q_or_k() {
 
         //given
         String[] win2 = {"9C", "TS", "JH", "QH", "7C"};
@@ -52,7 +52,7 @@ public class PokerHandsTest {
     }
 
     @Test
-    public void should_return_2_win_when_poker_hands_with_two_poker_array_card_level_and_in_pair() {
+    public void should_return_1_win_when_poker_hands_with_two_poker_array_card_level_and_in_pair() {
 
         //given
         String[] win2 = {"2C", "2S", "4H", "5H", "7C"};
@@ -79,4 +79,31 @@ public class PokerHandsTest {
 
     }
 
+    @Test
+    public void should_return_1_win_when_poker_hands_with_two_poker_array_card_level_in_pair_with_max_card_num() {
+
+        //given
+        String[] win2 = {"2C", "2S", "4H", "5H", "7C"};
+        String[] win1 = {"2H", "2d", "3S", "5D", "9H"};
+        PokerHands pokerHands = new PokerHands();
+        //when
+        String winer = pokerHands.getWiner(win1, win2);
+        //then
+        Assert.assertEquals("win1", winer);
+
+    }
+
+    @Test
+    public void should_return_1_win_when_poker_hands_with_two_poker_array_card_level_in_three_of_a_kind() {
+
+        //given
+        String[] win2 = {"2C", "2S", "2H", "5H", "9C"};
+        String[] win1 = {"3H", "3d", "3S", "5D", "7H"};
+        PokerHands pokerHands = new PokerHands();
+        //when
+        String winer = pokerHands.getWiner(win1, win2);
+        //then
+        Assert.assertEquals("win1", winer);
+
+    }
 }
