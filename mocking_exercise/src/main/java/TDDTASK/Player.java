@@ -107,8 +107,6 @@ public class Player {
             }
 
         }
-
-
     }
 
     private int getMaxCodeCount(List<Integer> codeList) {

@@ -1,5 +1,6 @@
 package TDDTASK;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,10 +14,10 @@ public class PokerHands {
 
         List<Integer> player1CardCodeList = player1.getPokerCards().stream().map(e -> {
             return e.getCode();
-        }).collect(Collectors.toList());
+        }).sorted(Integer::compareTo).collect(Collectors.toList());
         List<Integer> player2CardCodeList = player2.getPokerCards().stream().map(e -> {
             return e.getCode();
-        }).collect(Collectors.toList());
+        }).sorted(Integer::compareTo).collect(Collectors.toList());
 
         if (player1.getPokerLevel() == player2.getPokerLevel()) {
             if (player1.getPokerLevel() == PokerLevel.HIGH_CARD.getLevel()) {
@@ -37,22 +38,39 @@ public class PokerHands {
                 String winer = toFindWinerFromPairOrThreeOfAKind(player1, player2, player1CardCodeList, player2CardCodeList, equalNum);
                 if (winer != null) return winer;
 
+            }else if(player1.getPokerLevel()==PokerLevel.TWO_PAIR.getLevel()){
+
+                List<Integer> player1TwoPairCodes = getTwoPairCodes(player1CardCodeList);
+                List<Integer> player2TwoPairCodes = getTwoPairCodes(player2CardCodeList);
+                if(player1TwoPairCodes.get(1)>player2TwoPairCodes.get(1)){
+                        return "win1";
+                    }else if(player1TwoPairCodes.get(1)<player2TwoPairCodes.get(1)){
+                        return "win2";
+                    }else if(player1TwoPairCodes.get(1)==player2TwoPairCodes.get(1)){
+                        if(player1TwoPairCodes.get(0) < player2TwoPairCodes.get(0)){
+                                    return "win2";
+                        } else if (player1TwoPairCodes.get(0) > player2TwoPairCodes.get(0)) {
+                            return "win1";
+                        }else if (player1TwoPairCodes.get(0) == player2TwoPairCodes.get(0)) {
+                            List<Integer> player1Codes0 = getRemainCodeSortedList(player1CardCodeList, player1TwoPairCodes.get(0));
+                            List<Integer> player1Codes = getRemainCodeSortedList(player1Codes0, player1TwoPairCodes.get(1));
+                            List<Integer> player2Codes0 = getRemainCodeSortedList(player2CardCodeList, player2TwoPairCodes.get(0));
+                            List<Integer> player2Codes = getRemainCodeSortedList(player2Codes0, player2TwoPairCodes.get(1));
+                             if(player1Codes.get(0)>player2Codes.get(0)){
+                                 return "win1";
+                             }else if(player1Codes.get(0)<player2Codes.get(0)){
+                                 return "win2";
+                             }else if(player1Codes.get(0)==player2Codes.get(0)){
+                                 return "no win";
+                             }
+
+                        }
+                    }
+
             }else if(player1.getPokerLevel()==PokerLevel.THREE_OF_A_KIND.getLevel()){
                 int equalNum = 3;
                 String winer = toFindWinerFromPairOrThreeOfAKind(player1, player2, player1CardCodeList, player2CardCodeList, equalNum);
                 if (winer != null) return winer;
-
-//                int equalNum1 = getEqualNum(player1, 3);
-//                int equalNum2 = getEqualNum(player2, 3);
-//
-//                if (equalNum1 > equalNum2) {
-//                    return "win1";
-//                } else if (equalNum1 < equalNum2) {
-//                    return "win2";
-//                } else if (equalNum1 == equalNum2) {
-//                    String winer = toFindWiner(player1CardCodeList, player2CardCodeList, equalNum1);
-//                    if (winer != null) return winer;
-//                }
 
             }
 
@@ -66,6 +84,35 @@ public class PokerHands {
         return null;
     }
 
+    private List<Integer> getTwoPairCodes(List<Integer> player1CardCodeList) {
+        int minPlayerPairCode=getEqualNumByCodeList(player1CardCodeList, 2);
+        List<Integer> codeList = getRemainCodeSortedList(player1CardCodeList, minPlayerPairCode);
+        int maxPlayerCodePairCode=getEqualNumByCodeList(codeList, 2);
+        List<Integer> result = new ArrayList<>();
+        result.add(minPlayerPairCode);
+        result.add(maxPlayerCodePairCode);
+        return result;
+
+    }
+    private int getEqualNumByCodeList(List<Integer> codeList, int equalNum) {
+        int equalCode = 0;
+        for (int i = 0; i < codeList.size(); i++) {
+            int count = 0;
+            for (int j = 0; j < codeList.size(); j++) {
+                if (codeList.get(i) == codeList.get(j)) {
+                    count++;
+                    if (count == equalNum) {
+                        break;
+                    }
+                }
+            }
+            if (count == equalNum) {
+                equalCode = codeList.get(i);
+                break;
+            }
+        }
+        return equalCode;
+    }
     private String toFindWinerFromPairOrThreeOfAKind(Player player1, Player player2, List<Integer> player1CardCodeList, List<Integer> player2CardCodeList, int equalNum) {
         int equalNum1 = getEqualNum(player1, equalNum);
         int equalNum2 = getEqualNum(player2, equalNum);
@@ -85,20 +132,22 @@ public class PokerHands {
 
         List<Integer> player1SortCodeList1=getRemainCodeSortedList(player1CardCodes,equalNum1);
         List<Integer> player2SortCodeList2=getRemainCodeSortedList(player2CardCodes,equalNum1);
+        if (player1SortCodeList1.size() > 0) {
+            int maxRemainCode1 = player1SortCodeList1.get(player1SortCodeList1.size() - 1);
+            int maxRemainCode2 = player2SortCodeList2.get(player2SortCodeList2.size() - 1);
 
-        int maxRemainCode1 = player1SortCodeList1.get(player1SortCodeList1.size() - 1);
-        int maxRemainCode2 = player2SortCodeList2.get(player2SortCodeList2.size() - 1);
+            if(maxRemainCode1>maxRemainCode2){
+                return "win1";
+            }else if(maxRemainCode1<maxRemainCode2){
+                return "win2";
+            }else if(maxRemainCode1 == maxRemainCode2){
 
-        if(maxRemainCode1>maxRemainCode2){
-            return "win1";
-        }else if(maxRemainCode1<maxRemainCode2){
-            return "win2";
-        }else if(maxRemainCode1 == maxRemainCode2){
-
-            return toFindWiner(player1SortCodeList1, player2SortCodeList2, maxRemainCode1);
+                return toFindWiner(player1SortCodeList1, player2SortCodeList2, maxRemainCode1);
+            }
         }
 
-        return null;
+
+        return "no win";
     }
 
     private List<Integer> getRemainCodeSortedList( List<Integer> pokerCardCodeList, int filterCode) {
