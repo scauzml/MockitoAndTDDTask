@@ -7,10 +7,21 @@ public class PokerHands {
     public String getWiner(String[] pockerCard1, String[] pockerCard2) {
 
 
-        Player Player1 = createPlayer(pockerCard1);
-        Player Player2 = createPlayer(pockerCard2);
-
-
+        Player player1 = createPlayer(pockerCard1);
+        Player player2 = createPlayer(pockerCard2);
+        if(player1.getPokerLevel()==player2.getPokerLevel()){
+            int maxCode1=player1.getPokerCards().stream().map(e->{
+                return e.getCode();
+            }).max(Integer::compareTo).get();
+            int maxCode2=player2.getPokerCards().stream().map(e->{
+                return e.getCode();
+            }).max(Integer::compareTo).get();
+            if(maxCode1>maxCode2){
+                return "win1";
+            }else {
+                return "win2";
+            }
+        }
 
         return null;
     }

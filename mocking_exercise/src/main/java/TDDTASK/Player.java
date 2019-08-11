@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 public class Player {
     private List<PokerCard> pokerCards = new ArrayList<>();
     private int pokerLevel;
+    private int maxCode;
+
 
     public Player(List<PokerCard> pokerCards, int pokerLevel) {
         this.pokerCards = pokerCards;
@@ -18,6 +20,20 @@ public class Player {
     }
 
     public Player() {
+    }
+
+    public Player(List<PokerCard> pokerCards, int pokerLevel, int maxCode) {
+        this.pokerCards = pokerCards;
+        this.pokerLevel = pokerLevel;
+        this.maxCode = maxCode;
+    }
+
+    public int getMaxCode() {
+        return maxCode;
+    }
+
+    public void setMaxCode(int maxCode) {
+        this.maxCode = maxCode;
     }
 
     public int getPokerLevel() {
