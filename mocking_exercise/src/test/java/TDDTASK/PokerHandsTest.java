@@ -38,7 +38,7 @@ public class PokerHandsTest {
 
 
     @Test
-    public void should_return_2_win_when_poker_hands_with_two_poker_array_in_high_card_level_and_in_straight() {
+    public void should_return_2_win_when_poker_hands_with_two_poker_array_in_high_card_level_and_in_pair_level() {
 
         //given
         String[] win2 = {"9C", "TS", "JH", "QH", "QC"};
@@ -65,5 +65,18 @@ public class PokerHandsTest {
 
     }
 
+    @Test
+    public void should_return_2_win_when_poker_hands_with_two_poker_array_card_level_and_in_pair_with_pair_is_equal() {
+
+        //given
+        String[] win2 = {"2C", "2S", "4H", "5H", "7C"};
+        String[] win1 = {"2H", "2d", "3S", "5D", "7H"};
+        PokerHands pokerHands = new PokerHands();
+        //when
+        String winer = pokerHands.getWiner(win1, win2);
+        //then
+        Assert.assertEquals("win2", winer);
+
+    }
 
 }

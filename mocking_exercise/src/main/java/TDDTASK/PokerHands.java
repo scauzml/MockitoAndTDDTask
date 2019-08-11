@@ -57,21 +57,21 @@ public class PokerHands {
         return null;
     }
 
-    private String toFindWiner(List<Integer> player1CardCodeList, List<Integer> player2CardCodeList, int equalNum1) {
+    private String toFindWiner(List<Integer> player1CardCodes, List<Integer> player2CardCodes, int equalNum1) {
 
-        List<Integer> player1SortCodeList=getRemainCodeSortedList(player1CardCodeList,equalNum1);
-        List<Integer> player2SortCodeList=getRemainCodeSortedList(player2CardCodeList,equalNum1);
+        List<Integer> player1SortCodeList1=getRemainCodeSortedList(player1CardCodes,equalNum1);
+        List<Integer> player2SortCodeList2=getRemainCodeSortedList(player2CardCodes,equalNum1);
 
-        Integer maxRemainCode1 = player1CardCodeList.get(player1CardCodeList.size() - 1);
-        Integer maxRemainCode2 = player2CardCodeList.get(player2CardCodeList.size() - 1);
+        int maxRemainCode1 = player1SortCodeList1.get(player1SortCodeList1.size() - 1);
+        int maxRemainCode2 = player2SortCodeList2.get(player2SortCodeList2.size() - 1);
 
         if(maxRemainCode1>maxRemainCode2){
             return "win1";
         }else if(maxRemainCode1<maxRemainCode2){
             return "win2";
-        }else if(maxRemainCode1==maxRemainCode2){
+        }else if(maxRemainCode1 == maxRemainCode2){
 
-            return toFindWiner(player1CardCodeList, player2CardCodeList, maxRemainCode1);
+            return toFindWiner(player1SortCodeList1, player2SortCodeList2, maxRemainCode1);
         }
 
         return null;
@@ -84,7 +84,7 @@ public class PokerHands {
                 .collect(Collectors.toList());
     }
 
-    private Integer getMaxCode(Player player1) {
+    private int getMaxCode(Player player1) {
         return player1.getPokerCards().stream()
                 .map(e -> {
                     return e.getCode();
